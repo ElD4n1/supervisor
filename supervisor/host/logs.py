@@ -189,3 +189,7 @@ class LogsControl(CoreSysAttributes):
             raise HostServiceError(
                 "Unable to connect to systemd-journal-gatewayd", _LOGGER.error
             ) from ex
+
+    async def get_docker_logs(self) -> bytes:
+        """Fetch Docker logs."""
+        return await self.sys_supervisor.instance.get_logs()
