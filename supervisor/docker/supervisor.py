@@ -124,3 +124,7 @@ class DockerSupervisor(DockerInterface):
 
         except (docker.errors.DockerException, requests.RequestException) as err:
             raise DockerError(f"Can't fix start tag: {err}", _LOGGER.error) from err
+
+    async def get_logs(self) -> bytes:
+        """Fetch Docker logs."""
+        return await self.sys_run_in_executor(self.sys_docker.container_logs, self.name)
